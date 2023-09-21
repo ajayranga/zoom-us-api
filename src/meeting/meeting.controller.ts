@@ -6,23 +6,25 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { MeetingService } from './meeting.service';
 import { CreateMeetingDto } from './dto/create-meeting.dto';
 import { UpdateMeetingDto } from './dto/update-meeting.dto';
+import { Request, Response } from 'express';
 
 @Controller('meeting')
 export class MeetingController {
   constructor(private readonly meetingService: MeetingService) {}
-
   @Post()
   create(@Body() createMeetingDto: CreateMeetingDto) {
     return this.meetingService.create(createMeetingDto);
   }
 
   @Get()
-  findAll() {
-    return this.meetingService.findAll();
+  findAll(@Req() req: Request, @Res() res: Response) {
+    return this.meetingService.findAll(req, res);
   }
 
   @Get(':id')
