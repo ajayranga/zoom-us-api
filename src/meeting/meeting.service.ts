@@ -47,13 +47,17 @@ export class MeetingService {
           mailToCheck,
           meetingDetails.id,
         );
+
         return res.send(enrollEmailResp.join_url).status(200);
       } else {
         return res.redirect(this.ZOOM_AUTH_URL);
       }
     } catch (error) {
-      console.log('error.response.data || error', error.response.data || error);
-      return res.json(error.response.data || error).status(400);
+      console.log(
+        'error.response.data || error',
+        error?.response?.data || error,
+      );
+      return res.json(error?.response?.data || error).status(400);
     }
   }
 

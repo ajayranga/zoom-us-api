@@ -35,7 +35,7 @@ export const getToken = async (code: string): Promise<string> => {
   } catch (error) {
     throw {
       method: 'Get Token Failed',
-      error: error.response.data || error,
+      error: error?.response?.data || error,
     };
   }
 };
@@ -46,7 +46,7 @@ export const getProfile = async (
 ): Promise<IMyProfileResp> => {
   try {
     const { data: myProfileResp } = await axios.request<IMyProfileResp>({
-      url: 'https://api.zoom.us/v2/users/me',
+      url: `${process.env.ZOOM_US_BASE_URL}users/me`,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${access_token}`,
@@ -57,7 +57,7 @@ export const getProfile = async (
   } catch (error) {
     throw {
       method: 'Get Profile Failed',
-      error: error.response.data || error,
+      error: error?.response?.data || error,
     };
   }
 };
@@ -70,7 +70,7 @@ export const createMeetingWithData = async (
   try {
     const { data: createMeetingResponse } =
       await axios.request<ICreateMeetingResp>({
-        url: `https://api.zoom.us/v2/users/me/meetings`,
+        url: `${process.env.ZOOM_US_BASE_URL}users/me/meetings`,
         method: 'POST',
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -82,7 +82,7 @@ export const createMeetingWithData = async (
   } catch (error) {
     throw {
       method: 'Create Meeting Failed',
-      error: error.response.data || error,
+      error: error?.response?.data || error,
     };
   }
 };
@@ -95,7 +95,7 @@ export const checkEmailRegistration = async (
   try {
     const { data: checkIsEmailRegisteredResp } =
       await axios.request<ICheckMailResp>({
-        url: `https://api.zoom.us/v2/users/email?email=${mailToCheck}`,
+        url: `${process.env.ZOOM_US_BASE_URL}users/email?email=${mailToCheck}`,
         method: 'GET',
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -106,7 +106,7 @@ export const checkEmailRegistration = async (
   } catch (error) {
     throw {
       method: 'Check Email Failed',
-      error: error.response.data || error,
+      error: error?.response?.data || error,
     };
   }
 };
@@ -118,7 +118,7 @@ export const registerEmailToZoom = async (
   try {
     const { data: registerUserResponse } =
       await axios.request<IRegisterEmailToZoomResp>({
-        url: `https://api.zoom.us/v2/users`,
+        url: `${process.env.ZOOM_US_BASE_URL}users`,
         method: 'POST',
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -145,7 +145,7 @@ export const registerEmailToZoom = async (
   } catch (error) {
     throw {
       method: 'Check Email Failed',
-      error: error.response.data || error,
+      error: error?.response?.data || error,
     };
   }
 };
@@ -159,7 +159,7 @@ export const enrollEmailToMeeting = async (
   try {
     const { data: enrollEmailResp } =
       await axios.request<IEnrollEmailToMeetingResp>({
-        url: `https://api.zoom.us/v2/meetings/${meetingId}/registrants`,
+        url: `${process.env.ZOOM_US_BASE_URL}meetings/${meetingId}/registrants`,
         method: 'POST',
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -176,7 +176,7 @@ export const enrollEmailToMeeting = async (
   } catch (error) {
     throw {
       method: 'Check Email Failed',
-      error: error.response.data || error,
+      error: error?.response?.data || error,
     };
   }
 };
